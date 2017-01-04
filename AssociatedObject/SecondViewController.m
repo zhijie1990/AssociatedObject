@@ -44,6 +44,7 @@ static const char * alertViewKey = "alertViewKey";
     return _button2;
 }
 
+#pragma 初始化并显示 alertOne，同时定义block，将block 与 alertOne 关联
 -(void)alertAction1:(id)sender {
     UIAlertView *alertOne = [[UIAlertView alloc]initWithTitle:@"AlertOne" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     void (^block)(NSInteger) = ^(NSInteger buttonIndex) {
@@ -55,6 +56,8 @@ static const char * alertViewKey = "alertViewKey";
     [alertOne show];
 }
 
+
+#pragma 初始化并显示 alertTwo，同时定义block，将block 与 alertTwo 关联
 -(void)alertAction2:(id)sender {
     UIAlertView *alertTwo = [[UIAlertView alloc]initWithTitle:@"AlertTwo" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     void (^block)(NSInteger) = ^(NSInteger buttonIndex) {
@@ -65,6 +68,9 @@ static const char * alertViewKey = "alertViewKey";
     objc_setAssociatedObject(alertTwo, alertViewKey, block, OBJC_ASSOCIATION_COPY);//将block 与 alertOne 关联
     [alertTwo show];
 }
+
+
+#pragma  实现代理，在代理方法中，直接取出当前alert 所关联上的 block，再将buttonIndex 传入，让block 自己调用对应方法
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -82,6 +88,7 @@ static const char * alertViewKey = "alertViewKey";
 -(void)methodTwo{
     self.view.backgroundColor = [UIColor blueColor];
 }
+
 
 
 @end
