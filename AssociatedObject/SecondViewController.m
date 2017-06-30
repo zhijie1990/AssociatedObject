@@ -7,6 +7,7 @@
 //
 
 #import "SecondViewController.h"
+#import "UIAlertView+Associate.h"
 #import <objc/runtime.h>
 
 @interface SecondViewController ()
@@ -53,6 +54,12 @@ static const char * alertViewKey = "alertViewKey";
         }
     };
     objc_setAssociatedObject(alertOne, alertViewKey, block, OBJC_ASSOCIATION_COPY);//将block 与 alertOne 关联
+//    alertOne.block = ^(NSInteger buttonIndex){
+//        if (buttonIndex == 1) {
+//                        [self methodOne];
+//            }
+//        };
+
     [alertOne show];
 }
 
@@ -66,6 +73,12 @@ static const char * alertViewKey = "alertViewKey";
         }
     };
     objc_setAssociatedObject(alertTwo, alertViewKey, block, OBJC_ASSOCIATION_COPY);//将block 与 alertOne 关联
+//    alertTwo.block = ^(NSInteger buttonIndex){
+//        if (buttonIndex == 1) {
+//            [self methodOne];
+//        }
+//    };
+    
     [alertTwo show];
 }
 
@@ -79,6 +92,7 @@ static const char * alertViewKey = "alertViewKey";
     }
     void(^block)(NSInteger) = objc_getAssociatedObject(alertView, alertViewKey);
     block(buttonIndex);
+//    alertView.block(buttonIndex);
 }
 
 -(void)methodOne{
